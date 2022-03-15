@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>Knowledge Base</title>
+    <!-- Favicon-->
+    <!-- <link rel="icon" type="image/x-icon" href="assets/favicon.ico" /> -->
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Real Grid -->
+    <link href="realgrid/realgrid-style.css" rel="stylesheet">
+    <script src="realgrid/realgrid.2.5.0.min.js"></script>
+    <script src="realgrid/libs/jszip.min.js"></script>
+    <!-- Toast Editor -->
+  	<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
+  	<link rel="stylesheet" type="text/css" href="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.css">
+    <!-- Page CSS -->
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/UnifiedProcess-TodoList.css" rel="stylesheet">
+</head>
+<style>
+    .navbar .btn.btn-primary {
+        margin-right: 10px;
+        color: black;
+    	/* background-color: #4e73df; */
+        background-color: #f8f9fa;
+        border: none;
+    }
+</style>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar-->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading"><a href="${contextPath}/ProcessManagement-temp">KOOK</a></div>
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/AllSearch">전체 검색</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/IntegrationTest">통합프로세스</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/TotalProcessList">통합프로세스-Step</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/TodoList">통합프로세스-ToDoList</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/ProcessManagement-temp">단위프로세스</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/StepManagement">단위프로세스-Step</a>
+                        <a class="list-group-item list-group-item-action bg-light" href="${contextPath}/viewComCd">공통코드</a>
+                    </div>
+            </div>
+        </div>
+        <!-- Page Content-->
+        <div id="page-content-wrapper">
+            <!-- NavBae -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <!-- <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button> -->
+                <!-- <button class="btn btn-primary" id="" onclick="">단위프로세스(조회)</button> -->
+                <a class="btn btn-primary" href="${contextPath}/ProcessManagement-temp">컨텐츠관리</a>
+                <!-- <button class="btn btn-primary" id="" onclick="btnTest()">컨설팅 관리</button> -->
+                <!-- <button class="btn btn-primary" id="" onclick="btnTest()">제안 관리</button> -->
+                <!-- <button class="btn btn-primary" id="" onclick="btnTest()">QNA</button> -->    
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <!-- <li class="nav-item"><a class="nav-link" href="#!">Link</a></li> -->
+                        <li class="nav-item dropdown active">
+                            <a class="nav-link dropdown-toggle" id="userInfoDropdown" href="#!" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userInfoDropdown">
+                                <a class="dropdown-item" id="userInfoID" href="#!"></a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="${contextPath}/logout">Logout</a>
+                                <!-- <a class="dropdown-item" href="#!">Another action</a> -->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container-fluid">
+                <h5 class="mt-2 font-weight-bold">통합프로세스-ToDoList</h5>
+                <hr style="margin-top: 0.2rem; margin-bottom: 0.2rem;">
+                <div class="content">
+          	    	<div class="optionArea row">
+			          	<div class="col-8" style="padding-left: 0; display: flex;">
+        		   			<select class="custom-select rounded-0 col-1" id ="" name="" onchange="" style="border-color: #343a40; margin-right: 5px;">
+				    			<option value="" selected="selected">등록일</option>
+				    			<!-- <option value="">완료일</option> -->
+				    		</select>
+			          		<input id="datePicker1" type="date" onchange="getTodoList()"> ~
+			          		<input id="datePicker2" type="date" onchange="getTodoList()" style="margin-right: 15px;">
+			          		<div style="margin-top: 8px; margin-right: 5px;">
+			          			<label style="margin-bottom: 0">담당자</label>
+			          		</div>
+   						    <select class="custom-select rounded-0 col-1" id ="todoAsnm" name="" onchange="getTodoList()" style="border-color: #343a40; margin-right: 5px;">
+				    			<option value="all" selected="selected">전체</option>
+				    		</select>
+							<div style="padding-top: 8px;">
+					            <label class="checkbox-inline" style="margin-bottom: 0;">
+					              	<input type="checkbox" id="inlineCheckbox1" value="option1" onchange="getTodoList()"> 미완료만 보기
+					            </label>
+                                <span class="text-danger" style="font-size: 0.8rem;">(미완료만 보기는 담당자 콤보박스 기준입니다)</span>
+				            </div>
+				            <button class="btn btn-primary" style="margin-left: auto; margin-right: 10px;" onclick="getTodoList()">조회</button>
+			          	</div>
+			          	<div class="col-4" style="display: flex;">
+				            <button class="btn btn-primary" onclick="tdlAskModify()" style="margin-left: auto; margin-right: 2px;">등록내용수정</button>
+			         	 </div>
+			        </div>
+					<div class="contentArea">
+		          		<div class="toDoListArea col-8">
+			            	<div class="toDoListGridArea">
+			              		<div id="toDoListGrid" class="toDoListGrid"></div>
+			            	</div>
+			          	</div>
+          	          	<div class="toDoAskArea col-4">
+				            <div class="toDoAskCtn">
+				              	<div class="card border-dark mb-3">
+				                	<div class="card-header">등록내용</div>
+				                	<div class="card-body">
+				                  		<div id="toDoAskViewer"></div>
+				                	</div>
+				              	</div>
+				            </div>
+                            <div id="answerGrid" class="answerGrid"></div>
+				            <div class="toDoAnswerList">
+				              	<div class="card border-success mb-3">
+				                	<div class="card-header">확인내용
+				                		<span class="text-info" style="padding-left: 0.3rem;">*답변은 수행인원 별로 입력해주세요</span>
+			                		</div>
+				                	<div class="card-body">
+				                  		<div id="toDoAnsViewer"></div>
+				                	</div>
+				              	</div>
+				            </div>
+			          	</div>
+					</div>
+                    <div class="btnArea" style="display: flex;">
+                        <button class="btn btn-primary" style="margin-left: auto;" onclick="testModalShow()">test</button>
+                        <button class="btn btn-primary" style="margin-left: auto;" onclick="answerModalShow()">답변등록</button>
+                    </div>
+                </div>
+            </div><!-- container-fluid -->
+        </div><!-- page-content-wrapper -->
+    </div>
+    <!-- 의뢰내용 수정 모달 영역 Start (Start 부터 End까지는 지워도 메인 페이지와 상관 없음) -->
+    <div class="modal" id="tdlAskModifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">통합프로세스-ToDoList</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-6" style="padding: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">통합프로세스명</label>
+                                <input type="text" class="form-control" id="intgProc_name" readonly>
+                            </div>
+                            <div class="form-group col-6" style="padding-right: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">단계명</label>
+                                <input type="text" class="form-control" id="intgProcStep_name" readonly>
+                            </div>
+                            <div class="form-group col-6" style="padding: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">확인자</label>
+                                <input type="text" class="form-control" id="todo_asnm" readonly>
+                            </div>
+                                <div class="form-group col-6" style="padding-right: 0">
+                                <label for="recipient-name" class="col-form-label text-success" style="font-weight: bold;">업무구분</label>
+                                <input type="text" class="form-control" id="wr_unit">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col" style="padding: 0">
+                                <label for="message-text" class="col-form-label" style="font-weight: bold;">의뢰 내용</label>
+                                <div class="form-control" id=todo_ask></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateTdlAsk()">저장</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- 의뢰내용 수정  모달 영역 End -->
+    <!-- 답변등록 모달 영역 Start (Start 부터 End까지는 지워도 메인 페이지와 상관 없음) -->
+    <div class="modal" id="todoListAnsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">통합프로세스-ToDoList 답변</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-6" style="padding: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">통합프로세스명</label>
+                                <input type="text" class="form-control" id="intgProc_name_ans" readonly>
+                            </div>
+                            <div class="form-group col-6" style="padding-right: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">단계명</label>
+                                <input type="text" class="form-control" id="intgProcStep_name_ans" readonly>
+                            </div>
+                            <div class="form-group col-6" style="padding: 0">
+                                <label for="recipient-name" class="col-form-label" style="font-weight: bold;">확인자</label>
+                                <input type="text" class="form-control" id="todo_asnm_ans" readonly>
+                            </div>
+                                <div class="form-group col-6" style="padding-right: 0">
+                                <label for="recipient-name" class="col-form-label text-success" style="font-weight: bold;">보완프로세스</label>
+                                <input type="text" class="form-control" id="rdem_pr">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col" style="padding: 0">
+                                <label for="message-text" class="col-form-label" style="font-weight: bold;">확인 내용</label>
+                                <div class="form-control" id="todo_ans"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="updateTdlAnswer()">저장</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- 답변등록 모달 영역 End -->
+    <div id="modalArea"></div>
+    <!-- Bootstrap core JS-->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- toast Editor -->
+    <script src="https://uicdn.toast.com/tui-color-picker/latest/tui-color-picker.js"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script src="https://uicdn.toast.com/editor-plugin-color-syntax/latest/toastui-editor-plugin-color-syntax.min.js"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/common.js"></script>
+    <script src="js/UnifiedProcess-TodoList.js"></script>
+    <script>
+        const realGrid2Lic = "upVcPE+wPOmtLjqyBIh9RkM/nBOseBrflwxYpzGZyYmf0p0NzaD/UGp5TZmtDv/s/NIW4NiE7ye99/vc60f9i/zSFuDYhO8n5FWoeNFAGterVC5AjTeyHVvbelftwmJ2pzTSJoFVyNeLmrqK4xhR4kYeXTIC2fYTRZ8IdzC3lzGGfnABQhKm+cMX09RMOntwTNlVAsQGR54=";
+        // const contextPath = "http://localhost:18087/KOOK/";
+        const contextPath = "http://localhost:8080/KOOK/"; // 집
+        // const loginId = "<%=(String)session.getAttribute("login_user")%>";  //로그인 아이디
+        // const userName = "<%=(String)session.getAttribute("USER_NAME")%>";  //이름
+        const loginId = "HN999";    //로그인 아이디
+        const userName = "테스트";  //이름
+        document.getElementById('userInfoDropdown').innerText = userName;
+        document.getElementById('userInfoID').innerText = loginId;
+
+
+        $("#modalArea").load("unitProcessSearch-modal.html");
+        function testModalShow() {
+            $("#unitProcessSearchModal").modal('show');
+        }
+        
+
+
+    </script>
+</body>
+</html>

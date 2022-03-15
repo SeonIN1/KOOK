@@ -1,0 +1,8 @@
+.combArea {
+    /* display: flex; */
+    /* padding-left: 0; */
+}
+
+.combArea .form-control {
+    padding-left: 0;
+}

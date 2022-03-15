@@ -1,0 +1,75 @@
+@charset "EUC-KR";
+#wrapper {
+    width: 1920px;
+}
+#sidebar-wrapper {
+    position: fixed;
+}
+#page-content-wrapper {
+    padding-left: 241px;
+}
+
+.content {
+}
+.content .optionArea {
+	padding-left: 15px;
+	margin-bottom: 2px;
+}
+
+.contentArea {
+    display: flex;
+    height: 770px;
+	margin-bottom: 2px;
+	}
+	.contentArea .toDoListArea {
+	    padding-left: 0;
+	}
+	.contentArea .toDoListArea .toDoListGridArea {
+	    height: 100%;
+	}
+	.contentArea .toDoListArea .toDoListGridArea .toDoListGrid {
+	    height: 100%;
+	}
+	
+.contentArea .toDoAskArea {
+    padding: 0;
+    height: 100%;
+	}
+	.contentArea .toDoAskArea .card {
+	    padding: 0;
+	    height: 100%;
+	}
+	.contentArea .toDoAskArea .card-header {
+	    font-weight: bold;
+	}
+	.contentArea .toDoAskArea .card-body {
+	    padding-top: 0;
+	    overflow-x: hidden;
+	    overflow-y: auto;
+	    height: 100%;
+	}
+	.contentArea .toDoAskArea .toDoAskCtn {
+	    height: 40%;
+	    padding-bottom: 1px;
+	}
+	.contentArea .toDoAskArea .answerGrid {
+	    height: 15%;
+	    padding-bottom: 1px;
+	}
+	.contentArea .toDoAskArea .toDoAnswerList {
+	    height: 45%;
+	    padding-top: 1px;
+	}
+
+
+/* QHD */
+@media (min-width: 1921px) {
+	#wrapper {
+        width: 2560px;
+        /* height: 100vh; */
+    }
+	.contentArea {
+	    display: flex;
+	    height: 1100px;
+	}
+}
